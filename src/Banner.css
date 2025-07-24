@@ -1,0 +1,62 @@
+.glitch {
+  position: relative;
+  color: #fff;
+}
+.glitch::before,
+.glitch::after {
+  content: attr(class);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+}
+.glitch::before {
+  left: 2px;
+  text-shadow: -2px 0 magenta;
+  animation: glitch 1s infinite linear alternate-reverse;
+}
+.glitch::after {
+  left: -2px;
+  text-shadow: -2px 0 cyan;
+  animation: glitch 1s infinite linear alternate;
+}
+
+@keyframes glitch {
+  0% { clip: rect(0, 9999px, 0, 0); }
+  10% { clip: rect(0, 9999px, 80px, 0); }
+  20% { clip: rect(0, 9999px, 10px, 0); }
+  30% { clip: rect(0, 9999px, 60px, 0); }
+  40% { clip: rect(0, 9999px, 30px, 0); }
+  50% { clip: rect(0, 9999px, 90px, 0); }
+  60% { clip: rect(0, 9999px, 40px, 0); }
+  70% { clip: rect(0, 9999px, 70px, 0); }
+  80% { clip: rect(0, 9999px, 20px, 0); }
+  90% { clip: rect(0, 9999px, 50px, 0); }
+  100% { clip: rect(0, 9999px, 0, 0); }
+}
+
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.flicker-slow {
+  animation: flicker 3s infinite;
+}
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.neon-title {
+  text-shadow: 0 0 5px #f0f, 0 0 10px #f0f, 0 0 20px #0ff, 0 0 40px #0ff;
+}
+
+.neon-border {
+  border: 2px solid transparent;
+  border-image: linear-gradient(45deg, #0ff, #f0f) 1;
+  box-shadow: 0 0 10px #0ff, 0 0 20px #f0f, 0 0 30px #0ff;
+}

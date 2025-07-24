@@ -1,0 +1,275 @@
+@import "tailwindcss";
+
+/* Base Styles */
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-family: "Times New Roman", Times, serif;
+}
+
+body {
+  @apply bg-[aliceblue] p-2.5 font-sans;
+}
+
+h1 {
+  @apply text-4xl font-bold text-center mb-8;
+}
+
+/* Flow Section */
+.flow {
+  @apply w-full flex flex-col items-start justify-center gap-5 p-12 pl-18 relative transition-all duration-[1s];
+}
+
+.flow h1 {
+  @apply w-full text-8xl font-[400] mb-8 text-start cursor-default transition-all ease-in-out duration-[1.3s];
+}
+
+.flow h1:hover {
+  @apply ml-[15%];
+}
+
+/* Idea Section */
+.idea-page {
+  @apply w-full h-[100vh] flex flex-col items-center justify-center gap-5 p-12 pl-18;
+}
+
+.idea-content h1 {
+  @apply w-[75%] text-7xl font-[300] text-start cursor-default;
+}
+
+/* Help Section */
+.help {
+  @apply w-full flex items-start justify-start p-6 transition-all duration-[1s];
+}
+
+.help span {
+  @apply text-3xl font-[400] cursor-default;
+}
+
+.help span a {
+  @apply text-gray-500 underline;
+}
+
+/* Showcase Section */
+.showcase {
+  @apply w-full relative overflow-hidden;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ed 100%);
+}
+
+#top {
+  @apply flex w-full h-full justify-center items-center gap-8;
+  padding: 5vw;
+  position: relative;
+  z-index: 2;
+}
+
+/* Cursor Video */
+.cursor {
+  @apply w-full h-full absolute top-10 right-10 z-50;
+}
+
+.cursor-video {
+  @apply w-65 h-65 absolute top-10 right-10 z-50 rounded-4xl;
+}
+
+/* Title Overlay */
+.title-overlay {
+  @apply absolute text-center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.title-overlay h2 {
+  font-size: 4vw;
+  margin: 0;
+  background: linear-gradient(90deg, #ff8a00, #e52e71);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 20px rgba(229, 46, 113, 0.2);
+}
+
+.title-overlay p {
+  font-size: 1.5vw;
+  color: #666;
+}
+
+/* Video Styling */
+.show-video,
+.hero-video {
+  @apply w-full h-full block;
+  object-fit: cover;
+  filter: brightness(0.95);
+  transition: filter 0.3s ease;
+}
+
+#box1:hover .show-video,
+#box2:hover .show-video {
+  filter: brightness(1.15);
+}
+
+/* Captions & Prompts */
+.video-caption {
+  @apply absolute text-white;
+  bottom: 20px;
+  left: 20px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.video-caption h3 {
+  font-size: 1.8vw;
+  margin-bottom: 0.5vw;
+}
+
+.video-caption p {
+  font-size: 1.2vw;
+  margin: 0;
+  opacity: 0.8;
+}
+
+.interaction-prompt {
+  @apply absolute text-white;
+  bottom: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.2rem;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 12px 24px;
+  border-radius: 50px;
+  backdrop-filter: blur(5px);
+}
+
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+  #top {
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+  }
+
+  #top #box1,
+  #top #box2 {
+    height: 30vh;
+  }
+
+  .title-overlay h2 {
+    font-size: 2rem;
+  }
+
+  .title-overlay p {
+    font-size: 1rem;
+  }
+
+  .video-caption h3 {
+    font-size: 1.2rem;
+  }
+
+  .video-caption p {
+    font-size: 0.9rem;
+  }
+}
+
+/* responsive.css */
+
+/* Mobile-first adjustments */
+@media (max-width: 640px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+}
+
+/* Tablets (≥ 641px to 768px) */
+@media (min-width: 641px) and (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.125rem;
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .visit-docs-btn {
+    font-size: 0.75rem; /* smaller text */
+    padding: 0.5rem 1rem; /* reduced padding */
+    overflow: hidden; /* prevent overflow */
+    white-space: nowrap; /* prevent line break */
+    text-overflow: ellipsis; /* add ... if too long */
+  }
+}
+
+/* Small Laptops (≥ 769px to 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hero-title {
+    font-size: 3rem;
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* Large Screens (≥ 1025px) */
+@media (min-width: 1025px) {
+  .hero-content {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 4rem 2rem;
+  }
+
+  .hero-title {
+    font-size: 3.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+/* Make the "Visit Our Docs" button smaller on small screens */
