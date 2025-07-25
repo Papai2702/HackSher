@@ -23,10 +23,14 @@ h1 {
   @media screen and (max-width: 480px) {
     padding: 0;
     padding-left: 7px;
-    background: url("https://i.pinimg.com/1200x/34/d5/78/34d5789bd3b137b2e50bfefe60a7f47c.jpg");
+    /* background: url("https://i.pinimg.com/736x/73/e4/37/73e437641487f8fc24c2bfa161fed254.jpg"); */
+    background: url("https://i.pinimg.com/1200x/f4/58/c6/f458c6b13accd9555654b13b9e469f8e.jpg");
+    
     background-position: center;
     background-size: cover;
+    
   }
+  
   @media screen and (max-width: 768px) {
     .flow-task {
       width: 100%;
@@ -37,14 +41,22 @@ h1 {
       border: 1px solid rgba(255, 255, 255, 0.125);
       font-size: 1.9rem;
       padding: 4px;
-      color: rgba(162, 206, 218, 0.833);
+      /* color: black
+       */
+       
     }
+    
   }
 
   @media screen and (max-width: 480px) {
     .flow-task {
       font-weight: 600;
       font-size: 1.5rem;
+      /* mix-blend-mode: difference; */
+    }
+    .flow-task p{
+      mix-blend-mode: difference;
+      color: rgb(0, 2, 37);
     }
     .cursor,
     .cursor-video {
