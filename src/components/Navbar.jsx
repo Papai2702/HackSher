@@ -58,7 +58,7 @@ const ModernNavbar = () => {
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
             </svg>
             <span className="ml-2 text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-              404 Bots.Not.Find
+              404 Bots.Not.Found
             </span>
           </motion.div>
 

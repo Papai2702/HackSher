@@ -20,38 +20,35 @@ h1 {
 .flow {
   @apply w-full flex flex-col items-start justify-center gap-5 pt-12 pl-18 relative transition-all duration-[1s];
 
-  @media screen and (max-width:480px) {
+  @media screen and (max-width: 480px) {
     padding: 0;
     padding-left: 7px;
-    border: 2px solid yellow;
     background: url("https://i.pinimg.com/1200x/34/d5/78/34d5789bd3b137b2e50bfefe60a7f47c.jpg");
     background-position: center;
     background-size: cover;
   }
   @media screen and (max-width: 768px) {
-    
     .flow-task {
       width: 100%;
-      border: 2px solid red;
       backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    background-color: rgba(17, 25, 40, 0.20);
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.125);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      background-color: rgba(17, 25, 40, 0.2);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.125);
       font-size: 1.9rem;
       padding: 4px;
       color: rgba(162, 206, 218, 0.833);
     }
   }
-  
+
   @media screen and (max-width: 480px) {
-    
     .flow-task {
       font-weight: 600;
       font-size: 1.5rem;
     }
-    .cursor, .cursor-video{
-      display: none
+    .cursor,
+    .cursor-video {
+      display: none;
     }
   }
 }
@@ -308,3 +305,44 @@ h1 {
   }
 }
 /* Make the "Visit Our Docs" button smaller on small screens */
+@media screen and (max-width: 768px) {
+  .about-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    @apply space-y-6;
+  }
+
+  .About-links {
+    display: none;
+  }
+  .About-heading h1 {
+    font-size: 1.52rem;
+  }
+  .About-heading p {
+    font-size: 0.8rem;
+  }
+
+  .about-btns {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    margin: auto;
+    padding: 5px 3px;
+    justify-content: center;
+    gap: 12px;
+  }
+  .about-btns button {
+    width: 12rem;
+    font-size: 12px;
+  }
+  .banner {
+    height: fit-content;
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+  }
+
+  
+}
