@@ -18,7 +18,42 @@ h1 {
 
 /* Flow Section */
 .flow {
-  @apply w-full flex flex-col items-start justify-center gap-5 p-12 pl-18 relative transition-all duration-[1s];
+  @apply w-full flex flex-col items-start justify-center gap-5 pt-12 pl-18 relative transition-all duration-[1s];
+
+  @media screen and (max-width:480px) {
+    padding: 0;
+    padding-left: 7px;
+    border: 2px solid yellow;
+    background: url("https://i.pinimg.com/1200x/34/d5/78/34d5789bd3b137b2e50bfefe60a7f47c.jpg");
+    background-position: center;
+    background-size: cover;
+  }
+  @media screen and (max-width: 768px) {
+    
+    .flow-task {
+      width: 100%;
+      border: 2px solid red;
+      backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(17, 25, 40, 0.20);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+      font-size: 1.9rem;
+      padding: 4px;
+      color: rgba(162, 206, 218, 0.833);
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    
+    .flow-task {
+      font-weight: 600;
+      font-size: 1.5rem;
+    }
+    .cursor, .cursor-video{
+      display: none
+    }
+  }
 }
 
 .flow h1 {
