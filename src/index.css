@@ -9,7 +9,7 @@ body {
 }
 
 body {
-  @apply bg-[aliceblue] p-2.5 font-sans;
+  @apply bg-[aliceblue] p-1.5 font-sans;
 }
 
 h1 {
