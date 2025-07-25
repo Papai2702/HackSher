@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Added useNavigate
 
 const ModernNavbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeLink, setActiveLink] = useState("Home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate(); // Initialize navigate
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,6 +23,11 @@ const ModernNavbar = () => {
     { name: "Contact", path: "/contact" },
     { name: "Login/Signup", path: "/auth" },
   ];
+
+  // Handler for Get Started button
+  const handleGetStarted = () => {
+    navigate("/auth"); // Navigate to auth page
+  };
 
   const variants = {
     hidden: { opacity: 0, y: -20 },
@@ -94,13 +100,16 @@ const ModernNavbar = () => {
                 )}
               </motion.div>
             ))}
+            <Link to="/auth">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-sm font-medium rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-            >
+              onClick={handleGetStarted} // Added onClick handler
+              >
               Get Started
             </motion.button>
+              </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -151,16 +160,6 @@ const ModernNavbar = () => {
               {navLinks.map((link) => (
                 <motion.div
                   key={link.name}
-                  href={link.path}
-                  className={`block px-3 py-2 rounded-md text-base font-medium ${
-                    activeLink === link.name
-                      ? "bg-indigo-50 text-indigo-600"
-                      : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
-                  }`}
-                  onClick={() => {
-                    setActiveLink(link.name);
-                    setMobileMenuOpen(false);
-                  }}
                   initial={{ x: -20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: 0.1 * navLinks.indexOf(link) }}
@@ -186,6 +185,7 @@ const ModernNavbar = () => {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.1 * navLinks.length }}
+                onClick={handleGetStarted} // Added onClick handler for mobile
               >
                 Get Started
               </motion.button>
