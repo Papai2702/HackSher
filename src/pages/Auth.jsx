@@ -136,7 +136,7 @@ const AuthPage = () => {
             className="font-poppins text-3xl font-bold text-[#677E8A] text-center mb-6 text-shadow-md"
             variants={itemVariants}
           >
-            {isLogin ? 'Welcome Back' : 'Join RoboMart'}
+            {isLogin ? 'Welcome Back' : 'Join 4o4'}
           </motion.h2>
 
           <AnimatePresence>
