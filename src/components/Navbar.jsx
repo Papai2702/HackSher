@@ -36,7 +36,7 @@ const ModernNavbar = () => {
 
   return (
     <motion.nav
-      className={`float w-full z-50 transition-all duration-500 ${
+      className={`static w-full z-50 transition-all duration-500 ${
         isScrolled
           ? "bg-white/90 backdrop-blur-md shadow-sm py-2"
           : "bg-transparent py-4"

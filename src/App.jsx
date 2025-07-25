@@ -2,7 +2,7 @@ import React from "react";
 import About from "./components/About"
 import Nav from "./components/Navbar"
 import Home from "./pages/Home";
-import Documentation from "./pages/Documentation";
+import Coming from "./pages/ComingSoon";
 import Ecommerce from "./pages/Ecommerce";
 import Auth from "./pages/Auth";
 import Contact from "./pages/Contact";
@@ -21,6 +21,7 @@ const App = () => {
         <Route path= "/contact" element={<Contact />} />
         <Route path= "/profile" element={<Profile />} />
         <Route path= "/auth" element={<Auth />} />
+        <Route path= "/comingsoon" element={<Coming />} />
       </Routes>
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled, { keyframes, css } from "styled-components";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 // Animations
 const glitch = keyframes`
@@ -98,7 +99,6 @@ const MenuItem = styled(motion.div)`
     font-size: 2.5rem;
     margin: 2rem 0;
     padding: 2rem 3rem;
-
   }
 `;
 
@@ -128,7 +128,7 @@ const InnerText = styled.div`
   line-height: 2.2rem;
   color: #ffffffee;
   position: relative;
-  
+
   &:nth-child(2) {
     color: #ff00cc;
   }
@@ -218,29 +218,35 @@ const HoverParticles = styled(motion.div)`
 
 // Main Component
 const Menu = () => {
-  const menuItems = ["Store-4o4", "About.US", "Contact", "Doc'S "];
+  const menuItems = [
+    { label: "Store-4o4", path: "/e-com" },
+    { label: "About.US", path: "/about" },
+    { label: "Contact", path: "/contact" },
+    { label: "Doc'S", path: "/docs" },
+  ];
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   return (
     <MenuContainer className="menu-container">
       {menuItems.map((item, index) => (
-        <MenuItem
-          key={index}
-          onMouseEnter={() => setHoveredIndex(index)}
-          onMouseLeave={() => setHoveredIndex(null)}
-          initial={{ x: -50, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ delay: index * 0.1, duration: 0.6 }}
-        >
-          <HoverParticles />
-          <TextWrapper>
-            <AnimatedText animate={hoveredIndex === index}>
-              <InnerText>{item}</InnerText>
-              <InnerText>{item}</InnerText>
-            </AnimatedText>
-          </TextWrapper>
-          <Arrow>→</Arrow>
-        </MenuItem>
+        <Link to={item.path} style={{ textDecoration: "none" }} key={index}>
+          <MenuItem
+            onMouseEnter={() => setHoveredIndex(index)}
+            onMouseLeave={() => setHoveredIndex(null)}
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: index * 0.1, duration: 0.6 }}
+          >
+            <HoverParticles />
+            <TextWrapper>
+              <AnimatedText animate={hoveredIndex === index}>
+                <InnerText>{item.label}</InnerText>
+                <InnerText>{item.label}</InnerText>
+              </AnimatedText>
+            </TextWrapper>
+            <Arrow>→</Arrow>
+          </MenuItem>
+        </Link>
       ))}
     </MenuContainer>
   );

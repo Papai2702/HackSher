@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { X, Github, Linkedin, Settings, User } from "lucide-react";
 import { motion } from "framer-motion";
-
+import { Link } from "react-router-dom";
 // Removed direct imports for video and image assets to resolve resolution errors.
 // Assets will be referenced directly via public paths.
 
@@ -43,17 +43,19 @@ const App = () => {
           </div>
 
           <div className=" flex items-center space-x-6 About-links">
-            <motion.button
-              whileHover={{
-                scale: 1.05,
-                backgroundColor: "#22c55e",
-                boxShadow: "0 8px 16px rgba(34, 197, 94, 0.4)",
-              }}
-              whileTap={{ scale: 0.95 }}
-              className="visit-docs bg-green-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 text-base tracking-wide"
-            >
-              VISIT OUR DOCS
-            </motion.button>
+            <Link to="/comingsoon">
+              <motion.button
+                whileHover={{
+                  scale: 1.05,
+                  backgroundColor: "#22c55e",
+                  boxShadow: "0 8px 16px rgba(34, 197, 94, 0.4)",
+                }}
+                whileTap={{ scale: 0.95 }}
+                className="visit-docs bg-green-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 text-base tracking-wide"
+              >
+                VISIT OUR DOCS
+              </motion.button>
+            </Link>
 
             <div className="flex items-center space-x-6">
               <a
@@ -90,10 +92,12 @@ const App = () => {
                 size={24}
                 className="text-gray-300 hover:text-white cursor-pointer transition-colors duration-300"
               />
-              <User
-                size={24}
-                className="text-gray-300 hover:text-white cursor-pointer transition-colors duration-300"
-              />
+              <Link to="/profile">
+                <User
+                  size={24}
+                  className="text-gray-300 hover:text-white cursor-pointer transition-colors duration-300"
+                />
+              </Link>
             </div>
           </div>
         </motion.nav>
@@ -133,8 +137,8 @@ const App = () => {
                 }}
                 className="text-xl text-gray-300 leading-relaxed max-w-2xl tracking-wide"
               >
-                We don’t crash — We calculate, adapt, and conquer. At 404
-                Bots Not Found, we engineer intelligence into machines, transforming
+                We don’t crash — We calculate, adapt, and conquer. At 404 Bots
+                Not Found, we engineer intelligence into machines, transforming
                 real-world problems into automated solutions. From
                 self-balancing bots to military-grade gesture systems, our tech
                 leads the way.
@@ -150,28 +154,32 @@ const App = () => {
                 }}
                 className="flex space-x-6 pt-4 about-btns"
               >
-                <motion.button
-                  whileHover={{
-                    scale: 1.05,
-                    backgroundColor: "#22c55e",
-                    boxShadow: "0 8px 16px rgba(34, 197, 94, 0.4)",
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-green-500 text-white font-bold py-4 px-8 rounded-full shadow-lg transition-all duration-300 tracking-wide"
-                >
-                  Get Started
-                </motion.button>
-                <motion.button
-                  whileHover={{
-                    scale: 1.05,
-                    backgroundColor: "rgba(255, 255, 255, 0.05)",
-                    boxShadow: "0 8px 16px rgba(255, 255, 255, 0.1)",
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-transparent text-white font-bold py-4 px-8 rounded-full border-2 border-white/20 transition-all duration-300 tracking-wide"
-                >
-                  Explore Projects
-                </motion.button>
+                <Link to="/auth">
+                  <motion.button
+                    whileHover={{
+                      scale: 1.05,
+                      backgroundColor: "#22c55e",
+                      boxShadow: "0 8px 16px rgba(34, 197, 94, 0.4)",
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                    className="bg-green-500 text-white font-bold py-4 px-8 rounded-full shadow-lg transition-all duration-300 tracking-wide"
+                  >
+                    Get Started
+                  </motion.button>
+                </Link>
+                <Link to="/comingsoon">
+                  <motion.button
+                    whileHover={{
+                      scale: 1.05,
+                      backgroundColor: "rgba(255, 255, 255, 0.05)",
+                      boxShadow: "0 8px 16px rgba(255, 255, 255, 0.1)",
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                    className="bg-transparent text-white font-bold py-4 px-8 rounded-full border-2 border-white/20 transition-all duration-300 tracking-wide"
+                  >
+                    Explore Projects
+                  </motion.button>
+                </Link>
               </motion.div>
             </div>
 
@@ -200,14 +208,16 @@ const App = () => {
                 <h3 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-amber-400 to-orange-600 bg-clip-text text-transparent tracking-tight mb-8">
                   Bots Not Found!
                 </h3>
-                <motion.button
-                  whileHover={{ scale: 1.05, backgroundColor: "#f0f0f0" }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-white text-gray-900 font-bold py-4 px-10 rounded-full shadow-lg transition-all duration-300 tracking-wide"
-                  onClick={navigateToHome} // Add click handler to redirect
-                >
-                  Back home
-                </motion.button>
+                <Link to="/">
+                  <motion.button
+                    whileHover={{ scale: 1.05, backgroundColor: "#f0f0f0" }}
+                    whileTap={{ scale: 0.95 }}
+                    className="bg-white text-gray-900 font-bold py-4 px-10 rounded-full shadow-lg transition-all duration-300 tracking-wide"
+                    // onClick={navigateToHome} // Add click handler to redirect
+                  >
+                    Back home
+                  </motion.button>
+                </Link>
               </div>
             </motion.div>
           </motion.section>
@@ -268,17 +278,19 @@ const App = () => {
                   We analyze every move with data to back decisions that matter.
                   Deep insights, real results — track, tweak, triumph.
                 </p>
-                <motion.button
-                  whileHover={{
-                    scale: 1.03,
-                    backgroundColor: "rgba(34, 197, 94, 0.1)",
-                    boxShadow: "0 4px 8px rgba(34, 197, 94, 0.2)",
-                  }}
-                  whileTap={{ scale: 0.97 }}
-                  className="self-start bg-transparent hover:bg-green-500/10 text-green-400 font-bold py-3 px-6 rounded-full border-2 border-green-400/30 transition-all duration-300 mt-2 tracking-wide"
-                >
-                  View Details
-                </motion.button>
+                <Link to="/comingsoon">
+                  <motion.button
+                    whileHover={{
+                      scale: 1.03,
+                      backgroundColor: "rgba(34, 197, 94, 0.1)",
+                      boxShadow: "0 4px 8px rgba(34, 197, 94, 0.2)",
+                    }}
+                    whileTap={{ scale: 0.97 }}
+                    className="self-start bg-transparent hover:bg-green-500/10 text-green-400 font-bold py-3 px-6 rounded-full border-2 border-green-400/30 transition-all duration-300 mt-2 tracking-wide"
+                  >
+                    View Details
+                  </motion.button>
+                </Link>
               </motion.div>
 
               <motion.div
@@ -303,17 +315,19 @@ const App = () => {
                   audience. From memes to momentum — we grow your digital
                   presence.
                 </p>
-                <motion.button
-                  whileHover={{
-                    scale: 1.03,
-                    backgroundColor: "rgba(168, 85, 247, 0.1)",
-                    boxShadow: "0 4px 8px rgba(168, 85, 247, 0.2)",
-                  }}
-                  whileTap={{ scale: 0.97 }}
-                  className="self-start bg-transparent hover:bg-purple-500/10 text-purple-400 font-bold py-3 px-6 rounded-full border-2 border-purple-400/30 transition-all duration-300 mt-2 tracking-wide"
-                >
-                  View Details
-                </motion.button>
+                <Link to="/comingsoon">
+                  <motion.button
+                    whileHover={{
+                      scale: 1.03,
+                      backgroundColor: "rgba(168, 85, 247, 0.1)",
+                      boxShadow: "0 4px 8px rgba(168, 85, 247, 0.2)",
+                    }}
+                    whileTap={{ scale: 0.97 }}
+                    className="self-start bg-transparent hover:bg-purple-500/10 text-purple-400 font-bold py-3 px-6 rounded-full border-2 border-purple-400/30 transition-all duration-300 mt-2 tracking-wide"
+                  >
+                    View Details
+                  </motion.button>
+                </Link>
               </motion.div>
             </div>
           </motion.section>
