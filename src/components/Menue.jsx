@@ -222,7 +222,7 @@ const Menu = () => {
     { label: "Store-4o4", path: "/e-com" },
     { label: "About.US", path: "/about" },
     { label: "Contact", path: "/contact" },
-    { label: "Doc'S", path: "/docs" },
+    { label: "Doc'S", path: "/comingsoon" },
   ];
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
