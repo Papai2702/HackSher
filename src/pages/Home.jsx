@@ -84,7 +84,7 @@ const App = () => {
       <About className="About" />
       <TagLine2 />
       <Idea />
-      <IntroVideo />
+      {/* <IntroVideo /> */}
     </div>
   );
 };
