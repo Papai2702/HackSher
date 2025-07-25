@@ -9,7 +9,7 @@ const products = [
     category: "Frames",
     description: "Lightweight and durable frame suitable for quadcopters.",
     price: 1299,
-    imageUrl: "https://source.unsplash.com/600x400/?drone-frame",
+    imageUrl: "https://i.pinimg.com/736x/e5/3c/50/e53c505e14ad4db1f71aeaa62986774c.jpg",
     stock: 24,
     rating: 4.5
   },
@@ -19,7 +19,7 @@ const products = [
     category: "Motors",
     description: "High-performance 1000KV motor for smooth lift.",
     price: 699,
-    imageUrl: "https://source.unsplash.com/600x400/?brushless-motor",
+    imageUrl: "https://i.pinimg.com/736x/e9/0b/c8/e90bc841fed42ea72503ecb132687f6e.jpg",
     stock: 40,
     rating: 4.7
   },
@@ -29,7 +29,7 @@ const products = [
     category: "ESC",
     description: "30A Electronic Speed Controller compatible with BLDC motors.",
     price: 499,
-    imageUrl: "https://source.unsplash.com/600x400/?esc",
+    imageUrl: "https://i.pinimg.com/1200x/83/ba/a4/83baa433693a3ca50993bf341bbdc4b3.jpg",
     stock: 50,
     rating: 4.4
   },
@@ -39,7 +39,7 @@ const products = [
     category: "Batteries",
     description: "High-capacity battery for longer drone flights.",
     price: 1099,
-    imageUrl: "https://source.unsplash.com/600x400/?lipo-battery",
+    imageUrl: "https://i.pinimg.com/1200x/67/db/1a/67db1a031a7696b5170fb6fdb4c9cbf0.jpg",
     stock: 35,
     rating: 4.6
   },
@@ -49,7 +49,7 @@ const products = [
     category: "Controllers",
     description: "Popular flight controller for beginner drone makers.",
     price: 999,
-    imageUrl: "https://source.unsplash.com/600x400/?flight-controller",
+    imageUrl: "https://i.pinimg.com/736x/d3/28/bc/d328bc8b7735256768a4512d6e00e201.jpg",
     stock: 20,
     rating: 4.3
   },
@@ -59,7 +59,7 @@ const products = [
     category: "Controllers",
     description: "Advanced flight controller with GPS support.",
     price: 1999,
-    imageUrl: "https://source.unsplash.com/600x400/?apm-drone",
+    imageUrl: "https://i.pinimg.com/1200x/fd/48/ce/fd48ce958bc223265253fdf56d023470.jpg",
     stock: 15,
     rating: 4.6
   },
@@ -69,7 +69,7 @@ const products = [
     category: "Modules",
     description: "Accurate GPS for navigation and waypoint control.",
     price: 849,
-    imageUrl: "https://source.unsplash.com/600x400/?gps-module",
+    imageUrl: "https://i.pinimg.com/1200x/57/c2/a2/57c2a2f21493769aadabe48bc8c0d60b.jpg",
     stock: 18,
     rating: 4.5
   },
@@ -79,7 +79,7 @@ const products = [
     category: "Propellers",
     description: "Balanced propellers for stable flight.",
     price: 199,
-    imageUrl: "https://source.unsplash.com/600x400/?drone-propeller",
+    imageUrl: "https://i.pinimg.com/1200x/0e/5f/65/0e5f65c2a3e2f4bb3022711f835800cd.jpg",
     stock: 70,
     rating: 4.4
   },
@@ -89,7 +89,7 @@ const products = [
     category: "Transmitters",
     description: "2.4GHz 6-Channel remote control system.",
     price: 2599,
-    imageUrl: "https://source.unsplash.com/600x400/?drone-controller",
+    imageUrl: "https://i.pinimg.com/736x/64/f0/ba/64f0bac126f33fb796117fb68e79a8bb.jpg",
     stock: 10,
     rating: 4.7
   },
@@ -99,7 +99,7 @@ const products = [
     category: "Chargers",
     description: "LiPo charger compatible with 2S and 3S batteries.",
     price: 599,
-    imageUrl: "https://source.unsplash.com/600x400/?battery-charger",
+    imageUrl: "https://i.pinimg.com/736x/57/46/b3/5746b3ecd1b45a8d88a12caa682e569c.jpg",
     stock: 30,
     rating: 4.2
   },
@@ -109,7 +109,7 @@ const products = [
     category: "Power Systems",
     description: "Distributes power from battery to ESCs and FC.",
     price: 249,
-    imageUrl: "https://source.unsplash.com/600x400/?pdb-drone",
+    imageUrl: "https://i.pinimg.com/1200x/6e/c3/39/6ec339c10072db4a42f76262ac6c1202.jpg",
     stock: 45,
     rating: 4.4
   },
@@ -119,7 +119,7 @@ const products = [
     category: "Accessories",
     description: "Shock-absorbing landing gear for soft landings.",
     price: 299,
-    imageUrl: "https://source.unsplash.com/600x400/?drone-landing-gear",
+    imageUrl: "https://i.pinimg.com/736x/20/34/1e/20341e6120fb32bd2e71cf909e359ab2.jpg",
     stock: 60,
     rating: 4.3
   },
@@ -129,7 +129,7 @@ const products = [
     category: "Connectors",
     description: "Standard power connectors for drones.",
     price: 99,
-    imageUrl: "https://source.unsplash.com/600x400/?xt60-connector",
+    imageUrl: "https://i.pinimg.com/736x/30/94/ac/3094ac2da8b93a4fcd45c39e34d1ce5f.jpg",
     stock: 100,
     rating: 4.5
   },
@@ -139,7 +139,7 @@ const products = [
     category: "Accessories",
     description: "Reduces vibrations for smoother camera footage.",
     price: 349,
-    imageUrl: "https://source.unsplash.com/600x400/?vibration-damping",
+    imageUrl: "https://i.pinimg.com/1200x/31/24/81/3124819f9bb3ed11eb7229528212adea.jpg",
     stock: 25,
     rating: 4.1
   },
@@ -149,7 +149,7 @@ const products = [
     category: "Communication",
     description: "Real-time flight data transmission to ground station.",
     price: 1299,
-    imageUrl: "https://source.unsplash.com/600x400/?telemetry-module",
+    imageUrl: "https://img.robokits.co.in/b/bb4d958a2d6f132ac346c03726c90c41.image.1066x800.jpg",
     stock: 12,
     rating: 4.5
   },
@@ -159,7 +159,7 @@ const products = [
     category: "Cameras",
     description: "Lightweight analog camera for real-time video feed.",
     price: 799,
-    imageUrl: "https://source.unsplash.com/600x400/?fpv-camera",
+    imageUrl: "https://m.media-amazon.com/images/I/31PJ-HYCqNL._UF1000,1000_QL80_.jpg",
     stock: 22,
     rating: 4.3
   },
@@ -169,7 +169,7 @@ const products = [
     category: "Transmitters",
     description: "Video transmitter for FPV setups.",
     price: 899,
-    imageUrl: "https://source.unsplash.com/600x400/?fpv-transmitter",
+    imageUrl: "https://robu.in/wp-content/uploads/2017/10/robu-3-9.jpg",
     stock: 18,
     rating: 4.4
   },
@@ -179,7 +179,7 @@ const products = [
     category: "Goggles",
     description: "Immersive flying experience with built-in receiver.",
     price: 3799,
-    imageUrl: "https://source.unsplash.com/600x400/?fpv-goggles",
+    imageUrl: "https://in.fpvfaster.com/cdn/shop/products/Skyzone-SKY02O-SteadyView-OLED-FPV-Goggles-58GHz-48CH-DVR-640x400_large.jpg?v=1633598884",
     stock: 8,
     rating: 4.6
   },
@@ -189,7 +189,7 @@ const products = [
     category: "Frames",
     description: "Spare arms for 450mm quadcopter frame.",
     price: 349,
-    imageUrl: "https://source.unsplash.com/600x400/?drone-arm",
+    imageUrl: "https://m.media-amazon.com/images/I/61g7aQkrAdL.jpg",
     stock: 38,
     rating: 4.2
   },
@@ -199,7 +199,7 @@ const products = [
     category: "Safety",
     description: "Protects propellers and surroundings during flight.",
     price: 249,
-    imageUrl: "https://source.unsplash.com/600x400/?propeller-guard",
+    imageUrl: "https://5.imimg.com/data5/ANDROID/Default/2022/7/VS/ZL/UX/22020579/product-jpeg-500x500.jpg",
     stock: 32,
     rating: 4.4
   },
@@ -209,7 +209,7 @@ const products = [
     category: "Kits",
     description: "All-in-one kit to start building your own drone.",
     price: 5999,
-    imageUrl: "https://source.unsplash.com/600x400/?drone-kit",
+    imageUrl: "https://i.pinimg.com/736x/4b/bd/00/4bbd00b0399b1f25a450cb2d466e8f3f.jpg",
     stock: 10,
     rating: 4.8
   }
