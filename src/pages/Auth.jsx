@@ -1,320 +1,216 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion'; // Import motion and AnimatePresence
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const validateEmail = (email) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.email) newErrors.email = 'Email is required';
+    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Email is invalid';
+    
+    if (!formData.password) newErrors.password = 'Password is required';
+    else if (formData.password.length < 6) newErrors.password = 'Password must be at least 6 characters';
+    
+    if (!isLogin && formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
-  const handleAuth = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setError('');
-    setSuccessMessage('');
-
-    if (!email || !password) {
-      setError('Email and password are required.');
-      return;
-    }
-
-    if (!validateEmail(email)) {
-      setError('Please enter a valid email address.');
-      return;
-    }
-
-    if (!isLogin && password !== confirmPassword) {
-      setError('Passwords do not match.');
-      return;
-    }
-
-    // This is a UI simulation. In a real app, you'd integrate with Clerk.js here.
-    if (isLogin) {
-      console.log('Attempting to log in with:', { email, password });
-      setSuccessMessage('Login simulated successfully!');
-      // Simulate API call delay
+    if (validate()) {
+      setIsSubmitting(true);
+      // Simulate API call
       setTimeout(() => {
-        // In a real app, you'd handle successful login (e.g., redirect)
-        // console.log("Login successful, redirecting...");
-      }, 1500);
-    } else {
-      console.log('Attempting to sign up with:', { email, password });
-      setSuccessMessage('Signup simulated successfully! Please log in.');
-      // Simulate API call delay
-      setTimeout(() => {
-        setIsLogin(true); // After signup, switch to login form
+        setIsSubmitting(false);
+        alert(isLogin ? 'Login successful!' : 'Account created!');
       }, 1500);
     }
   };
 
-  // Animation variants for form elements
-  const containerVariants = {
-    hidden: { opacity: 0, y: 50, scale: 0.95 },
-    visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 100, damping: 15, staggerChildren: 0.1 } },
-    exit: { opacity: 0, y: -50, scale: 0.95, transition: { duration: 0.3 } }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#0E1D21] p-4 font-inter overflow-hidden">
-      {/* Tailwind CSS Script */}
-      <script src="https://cdn.tailwindcss.com"></script>
-      {/* Google Fonts - Poppins and Inter */}
-      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
-      {/* Custom CSS for animations and styling */}
-      <style>
-        {`
-        body {
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-        }
-        .text-shadow-sm {
-          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-        }
-        .text-shadow-md {
-          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-        }
-        .animate-pulse-glow {
-          animation: pulseGlow 2s infinite alternate;
-        }
-        @keyframes pulseGlow {
-          0% { box-shadow: 0 0 5px rgba(103, 126, 138, 0.4); }
-          100% { box-shadow: 0 0 15px rgba(103, 126, 138, 0.8); }
-        }
-        /* Custom Scrollbar Styles */
-        ::-webkit-scrollbar {
-          width: 8px;
-          height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-          background: #122E34; /* Darker track for dark theme */
-          border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb {
-          background: #677E8A; /* Accent color for scrollbar */
-          border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-          background: #5A6F7B; /* Darker accent for scrollbar hover */
-        }
-        `}
-      </style>
-
-      {/* Background Grid/Pattern SVG */}
-      <div className="absolute inset-0 z-0 overflow-hidden opacity-10">
-        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-          <pattern id="grid-pattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-            <circle cx="1" cy="1" r="0.5" fill="#1C3B43" />
-            <path d="M0 20 L40 20 M20 0 L20 40" stroke="#1C3B43" strokeWidth="0.5" />
-          </pattern>
-          <rect x="0" y="0" width="100%" height="100%" fill="url(#grid-pattern)" />
-        </svg>
-      </div>
-
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={isLogin ? "login" : "signup"} // Key for AnimatePresence to detect component change
-          className="relative z-10 bg-[#122E34] rounded-xl shadow-2xl shadow-[#0E1D21]/70 p-8 sm:p-10 w-full max-w-md border border-[#2E4A56]"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-        >
-          <motion.h2
-            className="font-poppins text-3xl font-bold text-[#677E8A] text-center mb-6 text-shadow-md"
-            variants={itemVariants}
-          >
-            {isLogin ? 'Welcome Back' : 'Join 4o4'}
-          </motion.h2>
-
-          <AnimatePresence>
-            {error && (
-              <motion.div
-                className="bg-red-600 bg-opacity-80 text-white text-sm p-3 rounded-md mb-4 flex justify-between items-center text-shadow-sm"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-              >
-                <span>{error}</span>
-                <button onClick={() => setError('')} className="text-white ml-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
-                  </svg>
-                </button>
-              </motion.div>
-            )}
-            {successMessage && (
-              <motion.div
-                className="bg-green-600 bg-opacity-80 text-white text-sm p-3 rounded-md mb-4 flex justify-between items-center text-shadow-sm"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-              >
-                <span>{successMessage}</span>
-                <button onClick={() => setSuccessMessage('')} className="text-white ml-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
-                  </svg>
-                </button>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          <form onSubmit={handleAuth} className="space-y-6">
-            <motion.div variants={itemVariants}>
-              <label htmlFor="email" className="block text-sm font-medium text-[#ABAFB5] mb-2">Email Address</label>
-              <input
-                type="email"
-                id="email"
-                className="w-full px-4 py-3 rounded-lg bg-[#0E1D21] border border-[#2E4A56] text-[#ABAFB5] placeholder-[#677E8A] focus:outline-none focus:ring-2 focus:ring-[#677E8A] transition-all duration-200"
-                placeholder="your.email@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </motion.div>
-            <motion.div variants={itemVariants} className="relative">
-              <label htmlFor="password" className="block text-sm font-medium text-[#ABAFB5] mb-2">Password</label>
-              <input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                className="w-full px-4 py-3 rounded-lg bg-[#0E1D21] border border-[#2E4A56] text-[#ABAFB5] placeholder-[#677E8A] focus:outline-none focus:ring-2 focus:ring-[#677E8A] transition-all duration-200 pr-10"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#677E8A] hover:text-[#5A6F7B] transition-colors duration-200"
-                style={{ top: '50%', transform: 'translateY(-50%)' }} // Adjust button position
-              >
-                {showPassword ? (
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>
-                  </svg>
-                ) : (
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.52 13.52 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/>
-                  </svg>
-                )}
-              </button>
-            </motion.div>
-            {!isLogin && (
-              <motion.div variants={itemVariants} className="relative">
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-[#ABAFB5] mb-2">Confirm Password</label>
-                <input
-                  type={showConfirmPassword ? "text" : "password"}
-                  id="confirmPassword"
-                  className="w-full px-4 py-3 rounded-lg bg-[#0E1D21] border border-[#2E4A56] text-[#ABAFB5] placeholder-[#677E8A] focus:outline-none focus:ring-2 focus:ring-[#677E8A] transition-all duration-200 pr-10"
-                  placeholder="••••••••"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#677E8A] hover:text-[#5A6F7B] transition-colors duration-200"
-                  style={{ top: '50%', transform: 'translateY(-50%)' }}
-                >
-                  {showConfirmPassword ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>
-                    </svg>
-                  ) : (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.52 13.52 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/>
-                    </svg>
-                  )}
-                </button>
-              </motion.div>
-            )}
-
-            <motion.button
-              type="submit"
-              className="w-full bg-[#677E8A] text-white font-bold py-3 rounded-lg shadow-md shadow-[#677E8A]/30 hover:bg-[#5A6F7B] transition-all duration-300 transform hover:scale-105 animate-pulse-glow"
-              whileHover={{ scale: 1.02, boxShadow: '0 0 20px rgba(103, 126, 138, 0.9)' }}
-              whileTap={{ scale: 0.98 }}
-              variants={itemVariants}
+    <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-md"
+      >
+        <div className="bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
+          {/* Toggle between Login/Signup */}
+          <div className="flex border-b border-gray-700">
+            <button
+              className={`flex-1 py-4 font-medium ${isLogin ? 'text-white bg-indigo-600' : 'text-gray-400 hover:text-white'}`}
+              onClick={() => setIsLogin(true)}
             >
-              {isLogin ? 'Log In' : 'Sign Up'}
-            </motion.button>
-          </form>
+              Sign In
+            </button>
+            <button
+              className={`flex-1 py-4 font-medium ${!isLogin ? 'text-white bg-indigo-600' : 'text-gray-400 hover:text-white'}`}
+              onClick={() => setIsLogin(false)}
+            >
+              Sign Up
+            </button>
+          </div>
 
-          <motion.div className="mt-6 text-center text-sm text-[#ABAFB5]" variants={itemVariants}>
-            {isLogin ? (
-              <>
-                Don't have an account?{' '}
-                <motion.button
-                  onClick={() => setIsLogin(false)}
-                  className="text-[#677E8A] font-semibold hover:underline transition-colors duration-200"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Sign Up
-                </motion.button>
-              </>
-            ) : (
-              <>
-                Already have an account?{' '}
-                <motion.button
-                  onClick={() => setIsLogin(true)}
-                  className="text-[#677E8A] font-semibold hover:underline transition-colors duration-200"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Log In
-                </motion.button>
-              </>
-            )}
-          </motion.div>
-
-          <motion.div className="mt-8 text-center" variants={itemVariants}>
-            <p className="text-sm text-[#ABAFB5] mb-4">Or continue with</p>
-            <div className="flex justify-center space-x-4">
-              <motion.button
-                className="p-3 rounded-full bg-[#1C3B43] hover:bg-[#2E4A56] transition-colors duration-200 shadow-md"
-                whileHover={{ scale: 1.1, boxShadow: '0 0 15px rgba(103, 126, 138, 0.5)' }}
-                whileTap={{ scale: 0.9 }}
-              >
-                {/* Google Icon SVG */}
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12.0003 4.75C14.0503 4.75 15.8303 5.44 17.2403 6.72L19.9903 3.97C17.8403 1.95 15.0303 0.75 12.0003 0.75C7.57031 0.75 3.73031 3.44 1.99031 7.15L5.60031 9.92C6.46031 7.24 9.00031 4.75 12.0003 4.75Z" fill="#ABAFB5"/>
-                  <path d="M22.25 12.0003C22.25 11.3803 22.19 10.7803 22.09 10.1903H12.25V13.8103H18.11C17.89 14.9903 17.29 15.9903 16.42 16.6603L20.03 19.4203C21.36 18.2103 22.25 16.2003 22.25 12.0003Z" fill="#ABAFB5"/>
-                  <path d="M5.60031 14.0803C5.35031 13.4603 5.21031 12.7403 5.21031 12.0003C5.21031 11.2603 5.35031 10.5403 5.60031 9.92031L1.99031 7.15031C1.35031 8.44031 1.00031 10.1103 1.00031 12.0003C1.00031 13.8903 1.35031 15.5603 1.99031 16.8503L5.60031 14.0803Z" fill="#ABAFB5"/>
-                  <path d="M12.0003 19.25C8.94031 19.25 6.39031 17.29 5.60031 14.61L1.99031 17.38C3.73031 21.09 7.57031 23.75 12.0003 23.75C15.0303 23.75 17.8403 22.55 19.9903 20.53L17.2403 17.78C15.8303 19.06 14.0503 19.75 12.0003 19.75V19.25Z" fill="#ABAFB5"/>
-                </svg>
-              </motion.button>
-              <motion.button
-                className="p-3 rounded-full bg-[#1C3B43] hover:bg-[#2E4A56] transition-colors duration-200 shadow-md"
-                whileHover={{ scale: 1.1, boxShadow: '0 0 15px rgba(103, 126, 138, 0.5)' }}
-                whileTap={{ scale: 0.9 }}
-              >
-                {/* GitHub Icon SVG */}
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 0.75C5.75 0.75 0.75 5.75 0.75 12C0.75 17.06 4.09 21.31 8.25 22.75C8.81 22.84 9 22.5 9 22.25C9 22.06 9 21.56 9 20.75C6.5 21.25 5.81 20.25 5.56 19.75C5.44 19.44 4.94 18.5 4.5 18.25C4.06 17.94 3.5 17.69 4.5 17.62C5.31 17.56 5.81 18.25 6.06 18.69C6.94 20.12 8.31 20.56 9.19 20.31C9.25 19.69 9.5 19.25 9.75 19C7.75 18.75 5.62 18 5.62 14.5C5.62 13.5 6 12.69 6.62 12C6.5 11.75 6.19 10.94 6.69 9.75C6.69 9.75 7.44 9.5 9 10.5C9.69 10.31 10.5 10.19 11.25 10.19C12 10.19 12.81 10.31 13.5 10.5C15.06 9.5 15.81 9.75 15.81 9.75C16.31 10.94 16 11.75 15.88 12C16.5 12.69 16.88 13.5 16.88 14.5C16.88 18 14.75 18.75 12.75 19C12.94 19.19 13.12 19.5 13.12 20C13.12 21.5 13.12 22.19 13.12 22.25C13.12 22.5 13.31 22.84 13.88 22.75C17.94 21.31 21.25 17.06 21.25 12C21.25 5.75 16.25 0.75 12 0.75Z" fill="#ABAFB5"/>
-                </svg>
-              </motion.button>
+          <div className="p-8">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-white mb-2">
+                {isLogin ? 'Welcome back' : 'Create an account'}
+              </h2>
+              <p className="text-gray-400">
+                {isLogin ? 'Sign in to continue' : 'Get started with us today'}
+              </p>
             </div>
-          </motion.div>
-        </motion.div>
-      </AnimatePresence>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={`w-full px-4 py-3 bg-gray-700 border ${errors.email ? 'border-red-500' : 'border-gray-600'} rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition`}
+                  placeholder="your@email.com"
+                />
+                {errors.email && <p className="mt-1 text-sm text-red-400">{errors.email}</p>}
+              </div>
+
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-1">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className={`w-full px-4 py-3 bg-gray-700 border ${errors.password ? 'border-red-500' : 'border-gray-600'} rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition`}
+                  placeholder="••••••••"
+                />
+                {errors.password && <p className="mt-1 text-sm text-red-400">{errors.password}</p>}
+              </div>
+
+              {!isLogin && (
+                <div>
+                  <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300 mb-1">
+                    Confirm Password
+                  </label>
+                  <input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    className={`w-full px-4 py-3 bg-gray-700 border ${errors.confirmPassword ? 'border-red-500' : 'border-gray-600'} rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition`}
+                    placeholder="••••••••"
+                  />
+                  {errors.confirmPassword && <p className="mt-1 text-sm text-red-400">{errors.confirmPassword}</p>}
+                </div>
+              )}
+
+              {isLogin && (
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <input
+                      id="remember-me"
+                      name="remember-me"
+                      type="checkbox"
+                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-600 rounded bg-gray-700"
+                    />
+                    <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-300">
+                      Remember me
+                    </label>
+                  </div>
+                  <Link to="/forgot-password" className="text-sm text-indigo-400 hover:text-indigo-300">
+                    Forgot password?
+                  </Link>
+                </div>
+              )}
+
+              <motion.button
+                type="submit"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                disabled={isSubmitting}
+                className={`w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition ${isSubmitting ? 'opacity-75 cursor-not-allowed' : ''}`}
+              >
+                {isSubmitting ? (
+                  <span className="flex items-center justify-center">
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Processing...
+                  </span>
+                ) : (
+                  isLogin ? 'Sign In' : 'Sign Up'
+                )}
+              </motion.button>
+            </form>
+
+            <div className="mt-6">
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-700"></div>
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-2 bg-gray-800 text-gray-400">
+                    Or continue with
+                  </span>
+                </div>
+              </div>
+
+              <div className="mt-6 grid grid-cols-2 gap-3">
+                <button className="w-full flex items-center justify-center py-2 px-4 bg-gray-700 hover:bg-gray-600 rounded-lg transition">
+                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                    <path fillRule="evenodd" d="M10 0C4.477 0 0 4.477 0 10c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0110 4.844c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.933.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C17.14 18.163 20 14.418 20 10c0-5.523-4.477-10-10-10z" clipRule="evenodd" />
+                  </svg>
+                </button>
+                <button className="w-full flex items-center justify-center py-2 px-4 bg-gray-700 hover:bg-gray-600 rounded-lg transition">
+                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                    <path d="M6.29 18.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0020 3.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.073 4.073 0 01.8 7.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 010 16.407a11.616 11.616 0 006.29 1.84" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div className="mt-6 text-center">
+              <p className="text-sm text-gray-400">
+                {isLogin ? "Don't have an account? " : "Already have an account? "}
+                <button 
+                  onClick={() => setIsLogin(!isLogin)} 
+                  className="text-indigo-400 hover:text-indigo-300 font-medium"
+                >
+                  {isLogin ? 'Sign up' : 'Sign in'}
+                </button>
+              </p>
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </div>
   );
 };
