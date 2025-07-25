@@ -1,111 +1,84 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import styled from 'styled-components';
+import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
-const Container = styled.div`
-  position: relative;
-  height: 300vh;
-`;
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
-const StickySection = styled(motion.div)`
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #ffffff;
-  overflow: hidden;
-`;
+const lines = [
+  "We create meaningful digital experiences,",
+  "that connect brands with people",
+  "through thoughtful design and technology.",
+];
 
-const TextContainer = styled.div`
-  // max-width: 1200px;
-  padding: 0 40px;
-`;
-
-const TextLine = styled(motion.p)`
-  font-size: clamp(2rem, 5vw, 4rem);
-  line-height: 1.2;
-  font-weight: 400;
-  color: #000000;
-  margin: 0 0 1.5rem 0;
-  overflow: hidden;
-
-  @media (max-width: 768px) {
-    font-size: clamp(1.5rem, 6vw, 3rem);
-    margin-bottom: 1rem;
-  }
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-`;
-
-const Character = styled(motion.span)`
-  display: inline-block;
-  position: relative;
-`;
-
-const TextReveal = ({ lines }) => {
+const HeroMessage = () => {
+  const sectionRef = useRef(null);
   const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
 
-  const animationProgress = useTransform(scrollYProgress, [0, 0.8], [0, 1]);
+  useEffect(() => {
+    if (window.innerWidth < 768) return; // Disable animation on mobile
+
+    const chars = containerRef.current.querySelectorAll(".char");
+    const totalChars = chars.length;
+
+    gsap.set(chars, { opacity: 0 });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top top",
+        end: `+=${window.innerHeight * 2}`,
+        pin: true,
+        scrub: 0.5,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+      },
+    });
+
+    chars.forEach((char, i) => {
+      tl.to(
+        char,
+        {
+          opacity: 1,
+          duration: 0.05,
+          ease: "power1.inOut",
+        },
+        `+=0.03`
+      );
+    });
+  }, []);
 
   return (
-    <Container ref={containerRef}>
-      <StickySection>
-        <TextContainer>
-          {lines.map((line, lineIndex) => {
-            const characters = line.split("");
-            return (
-              <TextLine key={lineIndex}>
-                {characters.map((char, charIndex) => {
-                  const charProgress = useTransform(
-                    animationProgress,
-                    [0, 1],
-                    [0, 1],
-                    { clamp: false }
-                  );
-
-                  return (
-                    <Character
-                      key={charIndex}
-                      style={{
-                        opacity: charProgress,
-                        y: useTransform(charProgress, [0, 1], [20, 0], {
-                          clamp: true
-                        })
-                      }}
-                      transition={{
-                        ease: [0.16, 0.77, 0.47, 0.97],
-                        duration: 0.5
-                      }}
-                    >
-                      {char === ' ' ? '\u00A0' : char}
-                    </Character>
-                  );
-                })}
-              </TextLine>
-            );
-          })}
-        </TextContainer>
-      </StickySection>
-    </Container>
+    <section
+      ref={sectionRef}
+      className="bg-white px-4 min-h-screen w-screen relative"
+    >
+      <div
+        ref={containerRef}
+        className="absolute w-screen left-0 top-1/2 -translate-y-1/2 text-black p-2.5 font-semibold  max-w-screen"
+        style={{ whiteSpace: " ", wordBreak: "break-word" }}
+      >
+        {lines.map((line, i) => (
+          <p
+            key={i}
+            className="mb-3"
+            style={{ fontSize: "clamp(1.5rem, 6vw, 3rem)", lineHeight: "1.6" }}
+          >
+            {line.split(" ").map((word, wi) => (
+              <span key={wi} className="inline-block mr-4.5">
+                {word.split("").map((char, j) => (
+                  <span key={j} className="char inline-block">
+                    {char}
+                  </span>
+                ))}
+              </span>
+            ))}
+          </p>
+        ))}
+      </div>
+    </section>
   );
 };
 
-const TextRevealSection = () => {
-  const lines = [
-    "We create meaningful digital experiences",
-    "that connect brands with people",
-    "through thoughtful design and technology."
-  ];
-
-  return <TextReveal lines={lines} />;
-};
-
-export default TextRevealSection;
+export default HeroMessage;
